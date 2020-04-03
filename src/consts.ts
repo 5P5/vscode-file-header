@@ -5,7 +5,7 @@ export const languageAllow = "language.allow";
 export const allowAll = "all";
 export const allowNone = "none";
 
-export const languageIdentifiers ="language.identifiers"
+export const languageIdentifiers = "language.identifiers";
 
 export const commentMode = "commentMode";
 //
@@ -19,10 +19,17 @@ export const updateManuel = "manual";
 export const updateSave = "save";
 export const updateDisable = "disable";
 /*  */
-export const updateContent ="update.content"
+export const updateContent = "update.content";
 
-export const autoInsert ="autoInsert"
+export const autoInsert = "autoInsert";
 
 export const template = "template";
 
 export const variables = "variables";
+
+export const logLevel = "logLevel";
+//
+export const logLevelError = "error";
+export const logLevelWarn = "warn";
+export const logLevelInfo = "info";
+export const logLevelDebug = "debug";

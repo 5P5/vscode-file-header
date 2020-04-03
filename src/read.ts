@@ -1,22 +1,42 @@
 import * as vscode from "vscode";
 import { URL } from "url";
-import { log } from "./log";
+import log from "./logger";
+import interpolate from "./interpolate";
 
-export async function getTemplate(text: string) {
-	// fix tehis lkdsfljkas double insert shit
+export default async function getTemplate(text: string, variables:Map<string,string>) {
+	log.info("check if template is external by protocol");
+	const regex = /(<protocol>(?:file|https?):)\/\//i;
+	const res = text.match(regex);
+
+	if (!res) {
+		log.debug("no valid protocol found. must be template text");
+		return text;
+	}
+
+	log.info("check if interpolation is needed");
 	if (text.indexOf("$") != -1) {
-		// interpolate a snippet
-		const e = vscode.window.activeTextEditor;
-		if (!e) return;
+		const editor = vscode.window.activeTextEditor;
+		if (!editor) {
+			log.error("lost activeTextEditor");
+			throw -1887295;
+		}
+		log.info("interpolate variables");
+		interpolate(text, variables);
+
+		log.info("interpolate as snippet");
 		const snippet = new vscode.SnippetString(text);
-		snippet.appendVariable("hallo","123");
-		const start = e.selection.active;
-		await e.insertSnippet(snippet, start, { undoStopBefore: false, undoStopAfter: false });
-		const end = e.selection.active;
+		log.debug("make sure cursor is at text end");
+		snippet.appendTabstop(0);
+
+		const start = editor.selection.active;
+		await editor.insertSnippet(snippet, start, { undoStopBefore: false, undoStopAfter: false });
+		const end = editor.selection.active;
 		const range = new vscode.Range(start, end);
-		text = e.document.getText(range);
-		// const te=new vscode.TextEdit (range)
-		await e.edit(
+		log.debug("grab interpolated text");
+		text = editor.document.getText(range);
+
+		log.debug("delete the text");
+		await editor.edit(
 			editBuilder => {
 				editBuilder.delete(range);
 			},
@@ -24,11 +44,12 @@ export async function getTemplate(text: string) {
 		);
 	}
 
+	log.info("");
 	let url;
 	try {
 		url = new URL(text);
 	} catch (error) {
-		log.appendLine(`´${error.message}´, must be template text`);
+		log.error(`´${error.message}´, must be template text`);
 		return text;
 	}
 
@@ -40,7 +61,7 @@ export async function getTemplate(text: string) {
 			case "https:":
 				return remote(url);
 			default:
-				log.appendLine(`unrecognized protocol ´${url.protocol}´, guess this is template text`)
+				log.error(`unrecognized protocol ´${url.protocol}´, guess this is template text`);
 				return text;
 		}
 	} catch (error) {
@@ -62,7 +83,7 @@ async function remote(url: URL) {
 		get(url, res => {
 			let data = "";
 
-			// A chunk of data has been recieved.
+			// A chunk of data has been received.
 			res.on("data", chunk => {
 				data += chunk;
 			});
