@@ -37,33 +37,38 @@
 			{
 				"title": "$npm_package_displayName",
 				"properties": {
-					"${npm_package_name}.language.allow": {
-						"markdownDescription": "For which languages header insert is allowed.",
+					"${npm_package_name}.autoInsert.enable": {
+						"type": "boolean",
+						"default": false,
+						"scope": "language-overridable",
+						"markdownDescription": "Automatically insert header from **Template** into new files."
+					},
+					"${npm_package_name}.autoInsert.allow": {
 						"type": "string",
 						"enum": [
 							"all",
 							"none"
 						],
 						"markdownEnumDescriptions": [
-							"All languages, except **Identifier** is false.",
-							"No language, except **Identifier** is true."
+							"All languages, except **Languages**.",
+							"No language, unless in **Languages**."
 						],
 						"default": "all",
-						"scope": "window"
+						"scope": "language-overridable",
+						"markdownDescription": "For which languages header insert is allowed."
 					},
-					"${npm_package_name}.language.identifiers": {
-						"markdownDescription": "List of language identifiers with permission to insert header in [INI file format](https://en.wikipedia.org/wiki/INI_file#Format) `name=value`  \nℹ️ [known language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)",
+					"${npm_package_name}.autoInsert.languages": {
 						"type": "array",
 						"items": {
 							"type": "string"
 						},
 						"default": [
-							"plaintext=false"
+							"plaintext","abc"
 						],
-						"scope": "window"
+						"scope": "language-overridable",
+						"markdownDescription": "List of language identifiers for **Allow** negation.  \nℹ️ [known language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)"
 					},
 					"${npm_package_name}.commentMode": {
-						"markdownDescription": "How to comment the **header**.",
 						"type": "string",
 						"enum": [
 							"block",
@@ -76,62 +81,30 @@
 							"Insert header text as is.  \n`Hello`  \n`World`  \nNo extra commenting is done.  \nAttention ⚠️  \n- Use this option as a language specific template overwrite in *settings.json*, as you must use the correct comment charaters in the  **template**:  \n\t+ `\"[language]\": { \"${npm_package_name}.commentMode\": \"raw\", \"${npm_package_name}.template\": ... }`  \n- Use the comment [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) in the **template**:  \n\t+ `${BLOCK_COMMENT_START}`  \n\t+ `${BLOCK_COMMENT_END}`  \n\t+ `${LINE_COMMENT}`"
 						],
 						"default": "block",
-						"scope": "language-overridable"
-					},
-					"${npm_package_name}.update": {
-						"markdownDescription": "When to update the **header** contents.  \nSee **Update Content** for options.",
-						"type": "string",
-						"enum": [
-							"manual",
-							"save",
-							"disable"
-						],
-						"default": "manual",
-						"markdownEnumDescriptions": [
-							"Manual via command/shortcut only.",
-							"On file save.",
-							"Completely disable update, including command/shortcut."
-						],
-						"scope": "language-overridable"
-					},
-					"${npm_package_name}.update.content": {
-						"markdownDescription": "*You really should use a version control system for change tracking, but here you go* 🤷‍♀️  \nJavaScript regular expression replace(), allowing for arbitrary complex text updates. See **Variables** for string interpolation options.  \nUse with caution ⚠️",
-						"type": "array",
-						"items": {
-							"type": "string"
-						},
-						"default": [
-							"Modified ()$=${date}"
-						],
-						"scope": "language-overridable"
-					},
-					"${npm_package_name}.autoInsert": {
-						"markdownDescription": "Automatically insert header from **Template** into new files with language.",
-						"type": "boolean",
-						"default": false,
-						"scope": "language-overridable"
+						"scope": "language-overridable",
+						"markdownDescription": "How to comment the **header**."
 					},
 					"${npm_package_name}.template": {
-						"markdownDescription": "Header template text or URI. See **Variables** for string interpolation options.  \nTemplate examples:  \n- Plain text `Author: ${author}\\n(c) ${CURRENT_YEAR}\\n$0`  \n- File containing header template text in current workspace `file://${WORKSPACE_FOLDER}/template.txt`  \n- Static location `file://C:/client/header.txt`  \n- Remote `https://raw.githubusercontent.com/microsoft/vscode/snippet/snippetVariables.ts`  \n\rℹ️ `$0` denotes the final cursor position.",
 						"type": "string",
-						"default": "Author: <author> (email)\\n$TM_FILENAME (c) $CURRENT_YEAR\\Modified: %date\\n$0",
-						"scope": "language-overridable"
+						"default": "Author: <author> (!email!)\n$TM_FILENAME (c) $CURRENT_YEAR\nModified: %date\n$0",
+						"scope": "language-overridable",
+						"markdownDescription": "Header template text or URI. See **Variables** for string interpolation options.  \nTemplate examples:  \n- Plain text `Author: ${author}\\n(c) ${CURRENT_YEAR}\\n$0`  \n- File containing header template text in current workspace `file://${WORKSPACE_FOLDER}/template.txt`  \n- Static location `file://C:/client/header.txt`  \n- Remote `https://raw.githubusercontent.com/microsoft/vscode/snippet/snippetVariables.ts`  \n\rℹ️ `$0` denotes the final cursor position."
+
 					},
 					"${npm_package_name}.variables": {
-						"markdownDescription": "Variables for interpolation in **Template** and **Content**.  \nYou can use all [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) and define additional variables in [INI file format](https://en.wikipedia.org/wiki/INI_file#Format) `name=value`.  \n`value` is evaluated as JavaScript code before interpolation, allowing for arbitrary complex text.  \nUse with caution ⚠️",
 						"type": "array",
 						"items": {
 							"type": "string"
 						},
 						"default": [
 							"<author>='Hello'",
-							"email=\"World\"",
+							"!email!=\"World\"",
 							"%date=new Date().toISOString()"
 						],
-						"scope": "language-overridable"
+						"scope": "language-overridable",
+						"markdownDescription": "Variables for interpolation in **Template** and **Content**.  \nYou can use all [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) and define additional variables in [INI file format](https://en.wikipedia.org/wiki/INI_file#Format) `name=value`.  \n`value` is evaluated as JavaScript code before interpolation, allowing for arbitrary complex text.  \nUse with caution ⚠️"
 					},
 					"${npm_package_name}.logLevel": {
-						"markdownDescription": "Minium log level to print in Output Channel.",
 						"type": "string",
 						"enum": [
 							"error",
@@ -146,7 +119,36 @@
 							"Trace execution",
 							"Useful when debugging problem"
 						],
-						"scope": "language-overridable"
+						"scope": "language-overridable",
+						"markdownDescription": "Minium log level to print in Output Channel."
+					},
+					"${npm_package_name}.update.enable": {
+						"type": "string",
+						"enum": [
+							"manual",
+							"save",
+							"disable"
+						],
+						"default": "manual",
+						"markdownEnumDescriptions": [
+							"Manual via command/shortcut only.",
+							"On file save.",
+							"Completely disable update, including command/shortcut."
+						],
+						"scope": "language-overridable",
+						"markdownDescription": "When to update the **header** contents.  \nSee **Update Content** for options."
+					},
+					"${npm_package_name}.update.content": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"default": [
+							"Modified ()$=${date}",
+							"sadf"
+						],
+						"scope": "language-overridable",
+						"markdownDescription": "*You really should use a version control system for change tracking, but here you go* 🤷‍♀️  \nJavaScript regular expression replace(), allowing for arbitrary complex text updates. See **Variables** for string interpolation options.  \nUse with caution ⚠️"
 					}
 				}
 			}
@@ -184,9 +186,11 @@
 		"@types/mocha": "^7.0.1",
 		"@types/node": "^12.11.7",
 		"@types/vscode": "^1.43.0",
+		"@typescript-eslint/eslint-plugin": "^2.26.0",
+		"@typescript-eslint/parser": "^2.26.0",
 		"eslint": "^6.8.0",
-		"@typescript-eslint/parser": "^2.18.0",
-		"@typescript-eslint/eslint-plugin": "^2.18.0",
+		"eslint-config-airbnb-base": "^14.1.0",
+		"eslint-plugin-import": "^2.20.2",
 		"glob": "^7.1.6",
 		"mocha": "^7.0.1",
 		"typescript": "^3.7.5",

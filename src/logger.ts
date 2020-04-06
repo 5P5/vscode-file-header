@@ -1,15 +1,18 @@
-import * as vscode from "vscode";
-import * as PKG from "./consts";
+import * as vscode from 'vscode';
+import * as PKG from './consts';
 
 class Logger {
 	private channel: vscode.OutputChannel;
-	private run = "12345678";
+
+	private run = '12345678';
+
 	private levels = {
-		error: [10, "Error  "],
-		warn:  [20, "Warning"],
-		info:  [30, "Info   "],
-		debug: [40, "Debug  "],
+		error: [10, 'Error  '],
+		warn:  [20, 'Warning'],
+		info:  [30, 'Info   '],
+		debug: [40, 'Debug  '],
 	};
+
 	private level = this.levels.debug;
 
 	constructor(parameters: string) {
@@ -18,7 +21,8 @@ class Logger {
 
 	private appendLine(msg: string) {
 		if (this.level[0] > this.levels[vscode.workspace.getConfiguration(PKG.name).get(PKG.logLevel)][0]) return -1577111;
-		this.channel.appendLine(`[${new Date().toLocaleTimeString()}][${this.run}][${this.level[1]}] ${msg}`);
+		this.channel.appendLine(`[${this.run}] [${new Date().toLocaleTimeString()}] [${this.level[1]}] ${msg}`);
+		return 0;
 	}
 
 	public error(msg: string) {
@@ -31,10 +35,12 @@ class Logger {
 		this.level = this.levels.warn;
 		this.appendLine(msg);
 	}
+
 	public info(msg: string) {
 		this.level = this.levels.info;
 		this.appendLine(msg);
 	}
+
 	public debug(msg: string) {
 		this.level = this.levels.debug;
 		this.appendLine(msg);

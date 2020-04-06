@@ -6,14 +6,14 @@ export function parseINI(strings: [string], options: { [k: string]: string | boo
 	// merge options
 	const opts = {
 		...{
-			Delimiter: "=",
-			trimName: false,
+			Delimiter: '=',
+			trimName:  false,
 			trimValue: false,
 		},
 		...options,
 	};
 
-	strings.forEach(element => {
+	strings.forEach((element) => {
 		const posOfDelimiter = element.indexOf(opts.Delimiter);
 		const name = element.slice(0, posOfDelimiter);
 		const rawVal = element.slice(posOfDelimiter + 1);
@@ -22,3 +22,5 @@ export function parseINI(strings: [string], options: { [k: string]: string | boo
 
 	return map;
 }
+
+export default null;

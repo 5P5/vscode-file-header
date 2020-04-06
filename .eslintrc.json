@@ -14,6 +14,28 @@
         "curly": "warn",
         "eqeqeq": "warn",
         "no-throw-literal": "warn",
-        "semi": "off"
+        "semi": "off",
+
+        "object-property-newline": ["warn", { "allowAllPropertiesOnSameLine": true }],
+        "newline-per-chained-call":"off",
+        "yoda":["error","never"],
+        "no-tabs": ["error", { "allowIndentationTabs": true }],
+        "indent": ["error", "tab",{ "VariableDeclarator": "first" }],
+        "max-len":"off",
+        "key-spacing": ["error", { "align": "value" }],
+        "no-multi-spaces": ["error", { "exceptions": { "VariableDeclarator": true } }],
+        "import/no-unresolved": "warn",
+        "import/extensions": "off"
+    },
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb-base"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
     }
 }
