@@ -68,7 +68,8 @@
 							"type": "string"
 						},
 						"default": [
-							"plaintext"
+							"plaintext",
+							"Log"
 						],
 						"scope": "language-overridable",
 						"markdownDescription": "List of *language identifiers* for **Allow** negation.  \n\n- If **Allow** is `all` this works as a blacklist (exclude these languages)  \n\n- If **Allow** is `none` this works as a whitelist (auto insert only for these languages)  \n\n\r☝️ List of [known language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)"

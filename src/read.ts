@@ -17,17 +17,11 @@ async function remote(url: URL) {
 			let data = '';
 
 			// A chunk of data has been received.
-			res.on('data', (chunk) => {
-				data += chunk;
-			});
+			res.on('data', (chunk) => { data += chunk; });
 
 			// The whole response has been received. Print out the result.
-			res.on('end', () => {
-				resolve(data);
-			});
-		}).on('error', (err) => {
-			reject(err);
-		});
+			res.on('end', () => { resolve(data); });
+		}).on('error', (err) => { reject(err); });
 	});
 }
 
@@ -64,12 +58,8 @@ export default async function getTemplate(text: string, variables:Map<string, st
 		text = editor.document.getText(range);
 
 		log.debug('delete temporary text');
-		await editor.edit(
-			(editBuilder) => {
-				editBuilder.delete(range);
-			},
-			{ undoStopBefore: false, undoStopAfter: false },
-		);
+		await editor.edit((editBuilder) => { editBuilder.delete(range); },
+			{ undoStopBefore: false, undoStopAfter: false });
 	}
 
 	log.info(`fetch template from url ´${text}´`);
@@ -93,7 +83,7 @@ export default async function getTemplate(text: string, variables:Map<string, st
 			return text;
 		}
 	} catch (error) {
-		log.error('fetch failed ultimately. ' + error);
+		log.error('header template fetch failed ultimately 😔 ' + error);
 		return error.message;
 	}
 }

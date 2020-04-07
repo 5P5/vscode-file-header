@@ -3,38 +3,29 @@ import * as PKG from './consts';
 import * as utils from './utils';
 import log from './logger';
 
-export default function update(editor: vscode.TextEditor, config: vscode.WorkspaceConfiguration) {
+export default async function update(editor: vscode.TextEditor, config: vscode.WorkspaceConfiguration) {
 	log.info(`get ${PKG.variables} and ${PKG.updateContent}`);
 	const variables = utils.parseINI(config.get(PKG.variables));
-	const content = utils.parseINI(config.get(PKG.updateContent));
+	const content = Array.from(utils.parseINI(config.get(PKG.updateContent)));
 
-	content.forEach(async (v, k) => {
+	for (let i = 0; i < content.length; i++) { // fuck this async cb shit .forEach(), ye good olde for
+		const k = content[i][0];
 		log.debug(`text.match ´${k}´`);
 
 		const b1 = k.indexOf('('), b2 = k.indexOf(')');
 		if (b2 < b1 || b1 == b2) {
 			log.warn(`no capturing groups in ´${k}´. did you forget ´( )´?`);
-			return -1366256;
+			continue;
 		}
 
 		const text = editor.document.getText();
 		const res = text.match(new RegExp(k.replace(/\\\\/g, '\\'))); // fix escapes from settings.json
-		if (!res) return -1825507; // skip to next item
+		if (!res) continue; // skip to next item
 
+		let v = content[i][1];
 		log.debug(`perform indirect lookup of ´${v}´ in variables names`);
 		v = variables.get(v) || v;
 
-		/*
-`balballba
-Modified:   '!date!
-dsafdsa`.match(e)
-(2) […]
-​0: "Modified:   '!date!"
-​1: "'!date!"
-​index: 10
-​input: "balballba\nModified:   '!date!\ndsafdsa"
-​length: 2
-*/
 		/* uff, okay, we need some magic here to
 		figure out in what editor line the match occurred.
 		all this shenanigans sadly need just because
@@ -55,11 +46,11 @@ dsafdsa`.match(e)
 		);
 
 		log.debug(`replace ´${res[1]}´ with ´${v}´. Only the first occurrence will be replaced.`);
-		indexPrev = indexPrev == -2 ? 0 : indexPrev; // fix edge case: match at pos 0,0
+		indexPrev = indexPrev == -2 ? 0 : indexPrev + 1; // fix edge case: match at pos 0,0
 		const start = new vscode.Position(count, -indexPrev + res.index + res[0].indexOf(res[1])); // finally calculate that birch of a position
 		const range = new vscode.Range(start, start.translate(0, res[1].length));
 		await editor.edit((editBuilder) => editBuilder.replace(range, eval(v)));
-		return 0;
-	});
+	}
+	// await editor.document.save();
 	return 0;
 }

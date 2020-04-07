@@ -70,7 +70,7 @@ export default async function insertHeader(e: any) {
 	const Allow = config.get(PKG.autoInsertAllow);
 	const Languages = config.get(PKG.autoInsertLanguages);
 
-	log.debug(`autoInsertAllow is ´${Allow}´`);
+	log.debug(`autoInsertAllow is ´${Allow}´, language is ´${languageId}´`);
 	switch (Allow) {
 	case PKG.autoInsertAllowAll:
 		if (Languages.includes(languageId)) {

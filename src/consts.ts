@@ -13,7 +13,6 @@ export const commentModeBlock = 'block';
 export const commentModeLine  = 'line';
 export const commentModeRaw   = 'raw';
 
-
 export const updateEnable = 'update.enable';
 export const updateEnableManuel = 'manual';
 export const updateEnableSave = 'save';
