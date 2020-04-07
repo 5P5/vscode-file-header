@@ -25,7 +25,11 @@
         "key-spacing": ["error", { "align": "value" }],
         "no-multi-spaces": ["error", { "exceptions": { "VariableDeclarator": true } }],
         "import/no-unresolved": "warn",
-        "import/extensions": "off"
+        "import/extensions": "off",
+        "prefer-template": "off",
+        "no-template-curly-in-string":"warn",
+        "one-var":"off",
+        "one-var-declaration-per-line":"off"
     },
     "env": {
         "es6": true,

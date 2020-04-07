@@ -4,73 +4,91 @@ import * as utils from './utils';
 import log from './logger';
 import getTemplate from './read';
 import interpolate from './interpolate';
+import update from './update';
 
-export default async function insertHeader(e: vscode.TextDocument) {
+export default async function insertHeader(e: any) {
 	log.newRunId();
 	log.debug('--- called ---');
 
-	/* log.info('get config');
-	const config = vscode.workspace.getConfiguration(PKG.name,"workspaceFolderLanguageValue"); */
-
 	let editor = vscode.window.activeTextEditor;
-	log.info('determin called from');
-	switch (this) {
-	case 'acb777':
-		log.debug('registerCommand');
-		break;
-
-	case '3c8a55':
-		log.debug('onDidOpenTextDocument');
-
-		/* log.info(`check ${PKG.autoInsert}`);
-		if (!config.get(PKG.autoInsert)) return -1552185;//disabled in favor of later config read */
-
-		while (!editor) {
-			log.debug('wait tick');
-			await new Promise((resolve) => setTimeout(resolve, 500));
-			editor = vscode.window.activeTextEditor;
-		}
-
-		log.info('check document is still virgin');
-		if (editor.document.getText().length > 0) return -1429067;
-		break;
-
-	default: log.debug(this.toString());
+	let time = 0;
+	const max = 1500, tick = 800;
+	while (!editor && time < max) {
+		log.debug('activeTextEditor wait tick');
+		time += tick;
+		await new Promise((resolve) => setTimeout(resolve, tick)); // some hack to get the active editor after a new doc is created
+		editor = vscode.window.activeTextEditor;
 	}
 
 	log.info('sanity checks');
 	if (!editor) {
-		log.warn(`${PKG.name} requires an active document.`);
+		log.warn(`${PKG.name} requires an active document`);
 		return -1230026;
 	}
 
 	log.info('get config');
-	const { languageId } = editor.document;
-	const config = vscode.workspace.getConfiguration(PKG.name, { languageId });
+	const { languageId } = editor.document; // I need an activeTextEditor here!
+	const config = vscode.workspace.getConfiguration(PKG.name, { uri: editor.document.uri, languageId });
 
+	log.info('determin called from');
+	switch (this) {
+	case '1db631':
+		log.debug('onWillSaveTextDocument');
+		log.info('check updateEnable');
+		if (config.get(PKG.updateEnable) !== PKG.updateEnableSave) return -1696462;
+		// fallthrough
+
+	case 'acb777':
+		log.debug('registerCommand');
+		log.info('check updateEnable');
+		if (config.get(PKG.updateEnable) !== PKG.updateEnableDisabled) {
+			log.info('check document has content');
+			if (editor.document.getText().length > 0) {
+				log.info('do update header');
+				update(editor, config);
+				return 0;
+			}
+		} else {
+			log.info('insert new header');
+		}
+		break;
+
+	case '3c8a55':
+		log.debug('onDidOpenTextDocument');
+		log.info('check autoInsertEnable');
+		if (!config.get(PKG.autoInsertEnable)) return -1552185;
+		log.info('check document is virgin');
+		if (editor.document.getText().length > 0) return -1429067;
+		break;
+
+	default:
+		log.warn(`caller ´${this.toString()}´ is unknown`);
+	}
+
+	// compile a new header from here on:
 	log.info('language allowed check');
 	const Allow = config.get(PKG.autoInsertAllow);
 	const Languages = config.get(PKG.autoInsertLanguages);
 
-	log.debug(`language allow ´${Allow}´`);
+	log.debug(`autoInsertAllow is ´${Allow}´`);
 	switch (Allow) {
-	case PKG.AllowAll:
+	case PKG.autoInsertAllowAll:
 		if (Languages.includes(languageId)) {
-			log.info(`${languageId} is blacklisted`);
+			log.info(`´${languageId}´ is blacklisted`);
 			return -1956672;
 		}
 		break;
 
-	case PKG.AllowNone:
+	case PKG.autoInsertAllowNone:
 		if (Languages.includes(languageId)) {
-			log.info(`${languageId} is whitelisted`);
+			log.info(`´${languageId}´ is whitelisted`);
 		} else {
 			return -1740105;
 		}
 		break;
 
 	default:
-		log.warn(`´${Allow}´ is not a valid case for ${PKG.autoInsertAllow}`);
+		log.warn(`invalid case ´${Allow}´ for ${PKG.autoInsertAllow}`);
 		return -1517709;
 	}
 
@@ -87,22 +105,23 @@ export default async function insertHeader(e: vscode.TextDocument) {
 	const commentMode = config.get(PKG.commentMode);
 
 	log.debug(`${PKG.commentMode} is ´${commentMode}´`);
-	let snippet = '\n<header>\n';
+	let snippet = '\n<header placeholder>\n';
 	switch (commentMode) {
-	case PKG.ModeBlock:
-		snippet = `\${BLOCK_COMMENT_START}${header}\${BLOCK_COMMENT_END}`;
-		break;
-// line / block gibts nicht für alle langs, user soll selber overwrite machen. final $0 am ende wird verschoben? new lines option + $0 dann replace ans ende
-
-	case PKG.ModeLine:
-		snippet = `\${LINE_COMMENT} ${header.replace(/\\?\n/ig, '\n${LINE_COMMENT} ')}`;
-		// header.split("\n")
+	case PKG.commentModeBlock:
+		snippet = '${BLOCK_COMMENT_START}' + header.replace(/\\n/g, '\n') + '${BLOCK_COMMENT_END}'; // fix escapes from settings.json
 		break;
 
-	case PKG.ModeRaw:
+	case PKG.commentModeLine:
+		snippet = '${LINE_COMMENT} ' + header.replace(/\\n|\n/g, '\n${LINE_COMMENT} ');
+		break;
+
+	case PKG.commentModeRaw:
 	default:
 		snippet = header;
 	}
+
+	log.info('touching up snippet 😄');
+	snippet += '\n'.repeat(config.get(PKG.newLines));
 
 	log.info('insert snippet');
 	editor.insertSnippet(new vscode.SnippetString(snippet), editor.selection.active);

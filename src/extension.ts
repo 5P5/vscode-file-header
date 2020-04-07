@@ -20,10 +20,11 @@ export async function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage("Hello234324324234 World!");
 	});*/
 
-	let d = vscode.workspace.onDidOpenTextDocument(main.default, "3c8a55");
+	let open = vscode.workspace.onDidOpenTextDocument(main.default, "3c8a55");
+	let save = vscode.workspace.onWillSaveTextDocument(main.default, "1db631")
 	vscode.window.showInformationMessage("myfuck is activeaed now");
 
-	context.subscriptions.push(disposable, d);
+	context.subscriptions.push(disposable, open, save);
 }
 
 // this method is called when your extension is deactivated

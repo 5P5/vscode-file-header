@@ -37,6 +37,11 @@
 			{
 				"title": "$npm_package_displayName",
 				"properties": {
+					"${npm_package_name}.😉": {
+						"type": "boolean",
+						"scope": "application",
+						"markdownDescription": "(this is not a setting)  \n\n☝️ **Remember, remember,** you can always overwrite all settings in a *settings.json*, even language specific: `\"[<language>]\": { \"${npm_package_name}.<setting>\": ... }`, to achieve your desired header style 👍  \n\nThe effective setting is computed by overriding or merging the values in the following order:  \n\n1. `defaultValue`  \n\n1. `globalValue` (if defined ➡️ *User settings.json*)  \n\n1. `workspaceValue` (if defined ➡️ *Workspace settings.json*)  \n\n1. `workspaceFolderValue` (if defined ➡️ *.vscode/settings.json*)  \n\n1. `globalLanguageValue` (if defined ➡️ *User settings.json \"[<language>]\": ...*)  \n\n1. `workspaceLanguageValue` (if defined ➡️ *Workspace settings.json \"[<language>]\": ...*)  \n\n1. `workspaceFolderLanguageValue` (if defined ➡️ *.vscode/settings.json  \"[<language>]\": ...*)"
+					},
 					"${npm_package_name}.autoInsert.enable": {
 						"type": "boolean",
 						"default": false,
@@ -55,7 +60,7 @@
 						],
 						"default": "all",
 						"scope": "language-overridable",
-						"markdownDescription": "For which languages header insert is allowed."
+						"markdownDescription": "For which *language identifiers* automatic header insert is allowed by default."
 					},
 					"${npm_package_name}.autoInsert.languages": {
 						"type": "array",
@@ -63,10 +68,10 @@
 							"type": "string"
 						},
 						"default": [
-							"plaintext","abc"
+							"plaintext"
 						],
 						"scope": "language-overridable",
-						"markdownDescription": "List of language identifiers for **Allow** negation.  \nℹ️ [known language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)"
+						"markdownDescription": "List of *language identifiers* for **Allow** negation.  \n\n- If **Allow** is `all` this works as a blacklist (exclude these languages)  \n\n- If **Allow** is `none` this works as a whitelist (auto insert only for these languages)  \n\n\r☝️ List of [known language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)"
 					},
 					"${npm_package_name}.commentMode": {
 						"type": "string",
@@ -76,20 +81,19 @@
 							"raw"
 						],
 						"markdownEnumDescriptions": [
-							"Use Block Comment style.  \n`/* Hello`  \n`World */`",
-							"Use Line Comment style.  \n`// Hello`  \n`// World`",
-							"Insert header text as is.  \n`Hello`  \n`World`  \nNo extra commenting is done.  \nAttention ⚠️  \n- Use this option as a language specific template overwrite in *settings.json*, as you must use the correct comment charaters in the  **template**:  \n\t+ `\"[language]\": { \"${npm_package_name}.commentMode\": \"raw\", \"${npm_package_name}.template\": ... }`  \n- Use the comment [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) in the **template**:  \n\t+ `${BLOCK_COMMENT_START}`  \n\t+ `${BLOCK_COMMENT_END}`  \n\t+ `${LINE_COMMENT}`"
+							"Use Block Comment style.  \n\n`/* Hello`  \n\n`World */`",
+							"Use Line Comment style.  \n\n`// Hello`  \n\n`// World`",
+							"Insert header text as is.  \n\n`Hello`  \n\n`World`  \n\nNo extra commenting is done.  \n\nAttention ⚠️  \n\n🅰 Use this option as a language specific **Template** overwrite in *settings.json*, as you must use the correct comment charaters in the  **Template**:  \n\n`\"[<language>]\": { \"${npm_package_name}.commentMode\": \"raw\", \"${npm_package_name}.template\": ... }`  \n\n🅱 Use the comment [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) in the **Template**:  \n\n`${BLOCK_COMMENT_START}`  \n\n`${BLOCK_COMMENT_END}`  \n\n`${LINE_COMMENT}`"
 						],
 						"default": "block",
 						"scope": "language-overridable",
-						"markdownDescription": "How to comment the **header**."
+						"markdownDescription": "How to comment header text assembled from **Template**.  \n\nAttention ⚠️  \n\nNot all languages support all modes; e.g. *js* both (`// /* */`), *html* / *css* only block tags (`<!-- -->` / `/* */`), *shell* however only line tag (`REM`, `#`). You can use language specific overwrites in *settings.json*: `\"[shellscript]\": { \"${npm_package_name}.commentMode\": \"line\" }` in these cases."
 					},
 					"${npm_package_name}.template": {
 						"type": "string",
-						"default": "Author: <author> (!email!)\n$TM_FILENAME (c) $CURRENT_YEAR\nModified: %date\n$0",
+						"default": "\\nAuthor: <author> (email)\\n$TM_FILENAME (c) $CURRENT_YEAR\\nDesc: ${1:description}\\nCreated:  !date!\\nModified: !date!\\n",
 						"scope": "language-overridable",
-						"markdownDescription": "Header template text or URI. See **Variables** for string interpolation options.  \nTemplate examples:  \n- Plain text `Author: ${author}\\n(c) ${CURRENT_YEAR}\\n$0`  \n- File containing header template text in current workspace `file://${WORKSPACE_FOLDER}/template.txt`  \n- Static location `file://C:/client/header.txt`  \n- Remote `https://raw.githubusercontent.com/microsoft/vscode/snippet/snippetVariables.ts`  \n\rℹ️ `$0` denotes the final cursor position."
-
+						"markdownDescription": "Header template text or URI.  \n\nSee **Variables** for string interpolation options.  \n\nTemplate examples:  \n\n- Plain text `Author: <author>\\n(c) $CURRENT_YEAR`  \n\n- File containing template text in current workspace `file://$WORKSPACE_FOLDER/template.txt`  \n\n- Local file `file://C:\\clients\\header.txt`  \n\n- Local file `file:///home/user/header`  \n\n- Remote `https://raw.githubusercontent.com/microsoft/vscode/snippet/snippetVariables.ts`  \n\n☝️ To initiate interpolation in URI, at least one variable must contain a `$`."
 					},
 					"${npm_package_name}.variables": {
 						"type": "array",
@@ -98,11 +102,11 @@
 						},
 						"default": [
 							"<author>='Hello'",
-							"!email!=\"World\"",
-							"%date=new Date().toISOString()"
+							"email=\"World\"",
+							"!date!=new Date().toISOString()"
 						],
 						"scope": "language-overridable",
-						"markdownDescription": "Variables for interpolation in **Template** and **Content**.  \nYou can use all [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) and define additional variables in [INI file format](https://en.wikipedia.org/wiki/INI_file#Format) `name=value`.  \n`value` is evaluated as JavaScript code before interpolation, allowing for arbitrary complex text.  \nUse with caution ⚠️"
+						"markdownDescription": "Variables for interpolation in **Template** and **Content**.  \n\nYou can use all [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) and define custom variable pairs here in [INI file format](https://en.wikipedia.org/wiki/INI_file#Format) `name=value`.  \n\n`value` is evaluated as JavaScript code before  replace(`name`), allowing for arbitrary complex text -- use quotation for string values!  \n\n☝️ Interpolation is done in the order of this list (lastly vscode snippet variables); e.g. `a='b'` followed by `b='c'` would be equal to `a='c'` -- keep an eye out on not accidentally overwriting names from values."
 					},
 					"${npm_package_name}.logLevel": {
 						"type": "string",
@@ -120,23 +124,30 @@
 							"Useful when debugging problem"
 						],
 						"scope": "language-overridable",
-						"markdownDescription": "Minium log level to print in Output Channel."
+						"markdownDescription": "Minium log level to print in *Output Channel*."
+					},
+					"${npm_package_name}.newLines": {
+						"type": "number",
+						"minimum": 0,
+						"default": 2,
+						"scope": "language-overridable",
+						"markdownDescription": "Additional *new lines* after final header line.  \n\nUse this option instead of adding `\\n` in **Template** to avoid commented out new lines."
 					},
 					"${npm_package_name}.update.enable": {
 						"type": "string",
 						"enum": [
+							"disabled",
 							"manual",
-							"save",
-							"disable"
+							"save"
 						],
-						"default": "manual",
+						"default": "disabled",
 						"markdownEnumDescriptions": [
+							"Completely disable update functionality, including command/shortcut.",
 							"Manual via command/shortcut only.",
-							"On file save.",
-							"Completely disable update, including command/shortcut."
+							"On file save (this extends `manual`)"
 						],
 						"scope": "language-overridable",
-						"markdownDescription": "When to update the **header** contents.  \nSee **Update Content** for options."
+						"markdownDescription": "When to update the **header** contents.  \n\nSee **Content** for options.  \n\nUse with caution ⚠️"
 					},
 					"${npm_package_name}.update.content": {
 						"type": "array",
@@ -144,11 +155,10 @@
 							"type": "string"
 						},
 						"default": [
-							"Modified ()$=${date}",
-							"sadf"
+							"Modified:\\s+(.+)=!date!"
 						],
 						"scope": "language-overridable",
-						"markdownDescription": "*You really should use a version control system for change tracking, but here you go* 🤷‍♀️  \nJavaScript regular expression replace(), allowing for arbitrary complex text updates. See **Variables** for string interpolation options.  \nUse with caution ⚠️"
+						"markdownDescription": "(You really should use a version control system for change tracking, but here you go 🤷‍♀️)  \n\nJavaScript regular expression replace(`RegExp`) on frist match, allowing for arbitrary complex text updates.  \n\nSee **Variables** for string interpolation options.  \n\n☝️ You can use `name` of **Variables** here as `value` perfrom an indirect interplation on that variable (😉 syntactic sugar for more [dry-ness](https://en.wikipedia.org/wiki/Don't_repeat_yourself)).  \n\nUse with caution ⚠️"
 					}
 				}
 			}

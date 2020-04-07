@@ -3,73 +3,6 @@ import { URL } from 'url';
 import log from './logger';
 import interpolate from './interpolate';
 
-export default async function getTemplate(text: string, variables:Map<string, string>) {
-	log.info('check if template is external by protocol');
-	const regex = /(<protocol>(?:file|https?):)\/\//i;
-	const res = text.match(regex);
-
-	if (!res) {
-		log.debug('no valid protocol found. must be template text');
-		return text;
-	}
-
-	log.info('check if interpolation is needed');
-	if (text.indexOf('$') != -1) {
-		const editor = vscode.window.activeTextEditor;
-		if (!editor) {
-			log.error('lost activeTextEditor');
-			throw -1887295;
-		}
-		log.info('interpolate variables');
-		interpolate(text, variables);
-
-		log.info('interpolate as snippet');
-		const snippet = new vscode.SnippetString(text);
-		log.debug('make sure cursor is at text end');
-		snippet.appendTabstop(0);
-
-		const start = editor.selection.active;
-		await editor.insertSnippet(snippet, start, { undoStopBefore: false, undoStopAfter: false });
-		const end = editor.selection.active;
-		const range = new vscode.Range(start, end);
-		log.debug('grab interpolated text');
-		text = editor.document.getText(range);
-
-		log.debug('delete the text');
-		await editor.edit(
-			(editBuilder) => {
-				editBuilder.delete(range);
-			},
-			{ undoStopBefore: false, undoStopAfter: false },
-		);
-	}
-
-	log.info('');
-	let url;
-	try {
-		url = new URL(text);
-	} catch (error) {
-		log.error(`´${error.message}´, must be template text`);
-		return text;
-	}
-
-	try {
-		switch (url.protocol) {
-		case 'file:':
-			return file(url);
-		case 'http:':
-		case 'https:':
-			return remote(url);
-		default:
-			log.error(`unrecognized protocol ´${url.protocol}´, guess this is template text`);
-			return text;
-		}
-	} catch (error) {
-		log.error(error);
-		return error.message;
-	}
-}
-
 async function file(url: URL) {
 	const { readFileSync } = await import('fs'); // defer import for performance reasons
 	return readFileSync(url, 'utf8');
@@ -77,7 +10,7 @@ async function file(url: URL) {
 
 // partially from https://stackoverflow.com/questions/6968448/where-is-body-in-a-nodejs-http-get-response/50244236#50244236
 async function remote(url: URL) {
-	const { get } = await import(url.protocol.slice(-1));
+	const { get } = await import(url.protocol.slice(0, -1));
 
 	return new Promise((resolve, reject) => {
 		get(url, (res) => {
@@ -96,4 +29,71 @@ async function remote(url: URL) {
 			reject(err);
 		});
 	});
+}
+
+export default async function getTemplate(text: string, variables:Map<string, string>) {
+	log.info('check template is external by protocol');
+	const regex = /(?<protocol>(?:file|https?):)\/\//i;
+	const res = text.match(regex);
+
+	if (!res) {
+		log.debug('no valid protocol found. must be template text');
+		return text;
+	}
+
+	log.info('check interpolation is needed');
+	if (text.indexOf('$') !== -1) {
+		const editor = vscode.window.activeTextEditor;
+		if (!editor) {
+			log.error('lost activeTextEditor');
+			throw -1887295;
+		}
+		log.info('interpolate variables');
+		text = interpolate(text, variables);
+
+		log.info('interpolate remaining ${} via snippet');
+		const snippet = new vscode.SnippetString(text);
+		log.debug('ensure cursor placed at snippet end');
+		snippet.appendTabstop(0);
+
+		const start = editor.selection.active;
+		await editor.insertSnippet(snippet, start, { undoStopBefore: false, undoStopAfter: false });
+		const end = editor.selection.active;
+		const range = new vscode.Range(start, end);
+		log.debug('grab interpolated text');
+		text = editor.document.getText(range);
+
+		log.debug('delete temporary text');
+		await editor.edit(
+			(editBuilder) => {
+				editBuilder.delete(range);
+			},
+			{ undoStopBefore: false, undoStopAfter: false },
+		);
+	}
+
+	log.info(`fetch template from url ´${text}´`);
+	let url;
+	try {
+		url = new URL(text);
+	} catch (error) {
+		log.error(`´${error.message}´, must be template text`);
+		return text;
+	}
+
+	try {
+		switch (url.protocol) {
+		case 'file:':
+			return await file(url);
+		case 'http:':
+		case 'https:':
+			return await remote(url);
+		default:
+			log.error(`unrecognized protocol ´${url.protocol}´, guess this is template text`);
+			return text;
+		}
+	} catch (error) {
+		log.error('fetch failed ultimately. ' + error);
+		return error.message;
+	}
 }
