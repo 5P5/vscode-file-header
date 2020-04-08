@@ -17,7 +17,7 @@ const config = {
 		devtoolModuleFilenameTemplate: '../[resource-path]'
 	},
 	devtool: 'source-map',
-	devtool: 'nosources-source-map',
+	devtool: 'inline-nosources-source-map',
 	externals: { vscode: 'commonjs vscode' }, // the vscode-module is created on-the-fly and must be excluded. Add other modules that cannot be webpack'ed, 📖 -> https://webpack.js.org/configuration/externals/
 	resolve: { extensions: ['.ts', '.js'] },// support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
 	module: { rules: [{ test: /\.ts$/, exclude: /node_modules/, use: [{ loader: 'ts-loader', options: { transpileOnly: true, } }] }] },

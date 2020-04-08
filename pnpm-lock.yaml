@@ -10,6 +10,7 @@ devDependencies:
   eslint-plugin-import: 2.20.2_eslint@6.8.0
   glob: 7.1.6
   mocha: 7.1.1
+  ts-loader: 6.2.2_typescript@3.8.3
   typescript: 3.8.3
   vscode-test: 1.3.0
   webpack: 4.42.1_webpack@4.42.1
@@ -2497,6 +2498,15 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-MWikgl9n9M3w+bpsY3He8L+w9eF9338xRl8IAO5viDizwSzziFEyUzo2xrrloB64ADbTf8uA8vRqqttDTOmccg==
+  /micromatch/4.0.2:
+    dependencies:
+      braces: 3.0.2
+      picomatch: 2.2.2
+    dev: true
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-y7FpHSbMUMoyPbYUSzO6PaZ6FyRnQOpHuKwbo1G+Knck95XVU4QAiKdGEnj5wwoS7PlOgthX/09u5iFJ+aYf5Q==
   /miller-rabin/4.0.1:
     dependencies:
       bn.js: 4.11.8
@@ -3878,6 +3888,21 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-FWtleNAtZ/Ki2qtqej2CXTOayOH9bHDQF+Q48VpWyDXjbYxA4Yz8iDB31zXOBUlOHHKidDbqGVrTUvQMPmBGBw==
+  /ts-loader/6.2.2_typescript@3.8.3:
+    dependencies:
+      chalk: 2.4.2
+      enhanced-resolve: 4.1.1
+      loader-utils: 1.4.0
+      micromatch: 4.0.2
+      semver: 6.3.0
+      typescript: 3.8.3
+    dev: true
+    engines:
+      node: '>=8.6'
+    peerDependencies:
+      typescript: '*'
+    resolution:
+      integrity: sha512-HDo5kXZCBml3EUPcc7RlZOV/JGlLHwppTLEHb3SHnr5V7NXD4klMEkrhJe5wgRbaWsSXi+Y1SIBN/K9B6zWGWQ==
   /tslib/1.11.1:
     dev: true
     resolution:
@@ -4230,6 +4255,7 @@ specifiers:
   eslint-plugin-import: ^2.20.2
   glob: ^7.1.6
   mocha: ^7.0.1
+  ts-loader: ^6.2.2
   typescript: ^3.7.5
   vscode-test: ^1.3.0
   webpack: ^4.42.1
