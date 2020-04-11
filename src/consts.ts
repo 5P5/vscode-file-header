@@ -1,10 +1,11 @@
-export const name = '${npm_package_name}';
+export const name = 'powerHeader';
 
 export const autoInsertEnable = 'autoInsert.enable';
 
 export const autoInsertAllow = 'autoInsert.allow';
-export const autoInsertAllowAll  = 'all';
-export const autoInsertAllowNone = 'none';
+export const autoInsertAllowAll    = 'all';
+export const autoInsertAllowNone   = 'none';
+export const autoInsertAllowAlways = 'always';
 
 export const autoInsertLanguages = 'autoInsert.languages';
 
@@ -14,9 +15,9 @@ export const commentModeLine  = 'line';
 export const commentModeRaw   = 'raw';
 
 export const updateEnable = 'update.enable';
-export const updateEnableManuel = 'manual';
-export const updateEnableSave = 'save';
-export const updateEnableDisabled = 'disabled';
+export const updateEnableManuel  = 'manual';
+export const updateEnableSave    = 'save';
+export const updateEnableDisable = 'disable';
 
 export const updateContent = 'update.content';
 

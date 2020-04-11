@@ -1,9 +1,10 @@
-# Change Log
+# [Unreleased]
 
-All notable changes to the "helloworld" extension will be documented in this file.
+- Features in Development 👨‍💻
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
+# [1.0.0] 2020-04-12
 
 - Initial release
+
+[Unreleased]: https://github.com/EPIVISION/vscode-file-header/tree/master
+[1.0.0]: https://github.com/EPIVISION/vscode-file-header/tag/v1.0.0

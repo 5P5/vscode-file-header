@@ -1,65 +1,64 @@
-# helloworld README
+<h1 style="text-align: center;font-weight: bold;">
+👊 Power Header 💥<br/>
+<br/>
+<img src="dist/icon.png" alt="logo">
+</h1>
 
-This is the README for your extension "helloworld". After writing up a brief description, we recommend including the following sections.
+**Power Header** automatically (or by command or shortcut) inserts (and updates) file header text (author comment).  
+**Power Header** offers easy configuration and powerful customization to fit any needs!
+
+![short demo of Power Header in action](dist/demo.gif "Power Header in action")
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+> This is just an abridged description. Please see in **Power Header** settings for all the juicy delicious details 🤤
 
-For example if there is an image subfolder under your extension project workspace:
+| What you ask for ❔ | What you get ❗ |
+|:-:|---|
+| 🗃️ Supported Languages | 💯% all of them! |
+| ⏩ Automatic Header Insert and Update | Yes, sir!<br/>Automagically ✨ insert header into new files (🛑 black-/whitelist-support *of course*) and update on save.<br/>Not a single keyboard shortcut pressed! |
+| 📄 Header Template | can be a **text string**, 😐<br/>read from a **local file**, 😲<br/>or even a **remote resource**! 🤯 (http(s)://)|
+| 🔀 Variables for Interpolation in Template | **Ain't no hard-coded fields BS here!**<br/>You can do whatever the f🤐 you want!<br/>Use all [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) and define custom variable pairs -- they can even be JavaScript code, allowing for arbitrary complex text, date formats, etc.! |
+| 💬 Comment Styles | ⬛ Block Comment style,<br/>➖ Line Comment style,<br/>📃 or Insert header as is. |
+| 🔄 Header Content Update | Update the header via command/shortcut or automatically on file save.<br/>JavaScript regular expression replace allows for arbitrary complex text updates. 🎉<br/>Use with caution ⚠️ |
+| Wow, all this is awesome 😮, but I have that super rare special edge-case in my multi-root workspace for this file language 🥺<br/>*-- I hear you say* ⁉ | Harness the full **Power Header** and *VS Code* built-in power 💥<br/>You can always overwrite all **Power Header** settings in a (*Workspace* or *.vscode* folder) *settings.json*, even language specific: `"[<language>]": { "powerHeader.<setting>": ... }`, to achieve your desired header style 👍 |
 
-\!\[feature X\]\(images/feature-x.png\)
+## Use Case Examples (extending default settings)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. Insert a simpler header in plain text files (via command/shortcut) ⚙️ *User settings.json*
+	```json
+	"[plaintext]": {
+		"powerHeader.commentMode": "raw",
+		"powerHeader.template": "Author: <author> (email) / $TM_FILENAME @ !date!"
+	}
+	```
+	let's make this work ⏩ automatically for plain text files only:
+	```jsonc
+	"[plaintext]": {
+		"powerHeader.autoInsert.enable": true,
+		"powerHeader.autoInsert.allow": "always",
+		"powerHeader.commentMode": "raw",
+		"powerHeader.template": "Author: <author> (email) / $TM_FILENAME @ !date!"
+	}
+	```
+1. Other header for that client project ⚙️ *Workspace settings.json*
+	```jsonc
+	"powerHeader.template": "file://$WORKSPACE_FOLDER/dev/template.txt"
+	```
+1. You company requires you to use a specific header template in `cpp` ⚙️ \<any>
+	```jsonc
+	"[cpp]": { 
+		"powerHeader.commentMode": "line",
+		"powerHeader.template": "https://intranet.company.com/static/templates/cpp/header",
+	}
+	```
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+See *Feature Contributions* tab⤴️ and better check in *Settings*➡️*Extensions*➡️**Power Header** for detailed explanation.
 
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+> Unfortunately current *Feature Contributions* Description column does not support markdownDescription [🐞 issue](https://github.com/microsoft/vscode/issues/88927)
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+🙅

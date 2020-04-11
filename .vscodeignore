@@ -1,2 +1,7 @@
-*
-!dist/*
+**
+!dist/extension.js
+!README.md
+!LICENSE
+!CHANGELOG.md
+!dist/icon.png
+!dist/demo.gif

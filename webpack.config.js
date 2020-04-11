@@ -3,6 +3,7 @@
 'use strict';
 
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 /**@type {import('webpack').Configuration}*/
 const config = {
@@ -33,7 +34,8 @@ const config = {
 				}
 			}).apply(compiler);
 		}]
-	}
+	},
+	plugins: [new CopyPlugin(['-dev/icon.png', '-dev/demo.gif', { from: '*', force: true }])],
 };
 module.exports = config;
 /*

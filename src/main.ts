@@ -41,7 +41,7 @@ export default async function insertHeader(e: any) {
 	case 'acb777':
 		log.debug('registerCommand');
 		log.info('check updateEnable');
-		if (config.get(PKG.updateEnable) !== PKG.updateEnableDisabled) {
+		if (config.get(PKG.updateEnable) !== PKG.updateEnableDisable) {
 			log.info('check document has content');
 			if (editor.document.getText().length > 0) {
 				log.info('do update header');
@@ -85,6 +85,10 @@ export default async function insertHeader(e: any) {
 		} else {
 			return -1740105;
 		}
+		break;
+
+	case PKG.autoInsertAllowAlways:
+		log.debug('autoInsertAllowAlways');
 		break;
 
 	default:

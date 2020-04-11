@@ -1,68 +1,111 @@
 {
-	"name": "easy_header",
-	"displayName": "Easy Auto File Header/Author",
-	"description": "Automatically insert header/author comment text into file. Easy configuration and powerful customization to fit any needs.",
+	"name": "vscode-file-header",
+	"displayName": "Power Header",
+	"description": "Automatically (or by command or shortcut) insert (and update) file header text (author comment). Easy configuration and powerful customization to fit any needs!",
 	"publisher": "epivision",
-	"homepage": "epi.vision",
-	"version": "0.0.1",
+	"version": "1.0.0",
+	"license": "SEE LICENSE IN LICENSE",
+	"homepage": "https://github.com/EPIVISION/vscode-file-header",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/EPIVISION/vscode-file-header"
+	},
+	"bugs": {
+		"url": "https://github.com/EPIVISION/vscode-file-header/issues"
+	},
+	"qna": "https://github.com/EPIVISION/vscode-file-header/wiki",
+	"icon": "./dist/icon.png",
+	"galleryBanner": {
+		"color": "#f0eeec",
+		"theme": "light"
+	},
+	"badges": [
+		{
+			"url": "https://badgen.net/github/stars/EPIVISION/vscode-file-header",
+			"href": "",
+			"description": "stars"
+		},
+		{
+			"url": "https://badgen.net/github/open-issues/EPIVISION/vscode-file-header",
+			"href": "",
+			"description": "open issues"
+		},
+		{
+			"url": "https://badgen.net/github/last-commit/EPIVISION/vscode-file-header",
+			"href": "",
+			"description": "last commit"
+		}
+	],
 	"engines": {
 		"vscode": "^1.43.0"
 	},
 	"categories": [
+		"Programming Languages",
+		"Snippets",
 		"Other"
 	],
 	"keywords": [
 		"header",
-		"file header",
-		"file info",
-		"author",
-		"file author",
-		"author info",
-		"info",
 		"license",
 		"copyright",
+		"author",
+		"info",
+		"powerful",
+		"power",
+		"file header",
+		"file info",
+		"file author",
+		"author info",
+		"author comment",
+		"comment",
 		"auto",
+		"automatically",
 		"easy",
 		"custom",
 		"customize",
+		"multiroot",
+		"multi-root ready",
 		"epivision"
 	],
 	"activationEvents": [
 		"*",
-		"onCommand:${npm_package_name}.insert"
+		"onCommand:powerHeader.insert"
 	],
-	"main": "./out/extension.js",
+	"main": "./dist/extension.js",
 	"contributes": {
 		"configuration": [
 			{
 				"title": "$npm_package_displayName",
 				"properties": {
-					"${npm_package_name}.😉": {
+					"powerHeader.😉": {
 						"type": "boolean",
+						"default": false,
 						"scope": "application",
-						"markdownDescription": "(this is not a setting)  \n\n☝️ **Remember, remember,** you can always overwrite all settings in a *settings.json*, even language specific: `\"[<language>]\": { \"${npm_package_name}.<setting>\": ... }`, to achieve your desired header style 👍  \n\nThe effective setting is computed by overriding or merging the values in the following order:  \n\n1. `defaultValue`  \n\n1. `globalValue` (if defined ➡️ *User settings.json*)  \n\n1. `workspaceValue` (if defined ➡️ *Workspace settings.json*)  \n\n1. `workspaceFolderValue` (if defined ➡️ *.vscode/settings.json*)  \n\n1. `globalLanguageValue` (if defined ➡️ *User settings.json \"[<language>]\": ...*)  \n\n1. `workspaceLanguageValue` (if defined ➡️ *Workspace settings.json \"[<language>]\": ...*)  \n\n1. `workspaceFolderLanguageValue` (if defined ➡️ *.vscode/settings.json  \"[<language>]\": ...*)"
+						"markdownDescription": "(this is not a setting)  \n\n☝️ **Remember, remember,** you can always overwrite all settings in a *settings.json*, even language specific: `\"[<language>]\": { \"powerHeader.<setting>\": ... }`, to achieve your desired header style 👍  \n\nThe effective setting is computed by overriding or merging the values in the following order:  \n\n1. `default················Value`  \n\n1. `global·················Value` (if defined ➡️ *User settings.json*)  \n\n1. `workspace··············Value` (if defined ➡️ *Workspace settings.json*)  \n\n1. `workspaceFolder········Value` (if defined ➡️ *.vscode/settings.json*)  \n\n1. `global·········LanguageValue` (if defined ➡️ *User settings.json \"[<language>]\": ...*)  \n\n1. `workspace······LanguageValue` (if defined ➡️ *Workspace settings.json \"[<language>]\": ...*)  \n\n1. `workspaceFolderLanguageValue` (if defined ➡️ *.vscode/settings.json \"[<language>]\": ...*)"
 					},
-					"${npm_package_name}.autoInsert.enable": {
+					"powerHeader.autoInsert.enable": {
 						"type": "boolean",
 						"default": false,
 						"scope": "language-overridable",
-						"markdownDescription": "Automatically insert header from **Template** into new files."
+						"markdownDescription": "⏩ Automatically insert header from **Template** into new files."
 					},
-					"${npm_package_name}.autoInsert.allow": {
+					"powerHeader.autoInsert.allow": {
 						"type": "string",
 						"enum": [
 							"all",
-							"none"
+							"none",
+							"always"
 						],
 						"markdownEnumDescriptions": [
-							"All languages, except **Languages**.",
-							"No language, unless in **Languages**."
+							"☑️ All languages, except in **Languages**.",
+							"🚫 No language, unless in **Languages**.",
+							"✅ Use this option as a language specific **Allow** overwrite in *settings.json*:  \n\n`\"[<language>]\": { \"powerHeader.autoInsert.allow\" \"always\", ... }"
 						],
 						"default": "all",
 						"scope": "language-overridable",
-						"markdownDescription": "For which *language identifiers* automatic header insert is allowed by default."
+						"markdownDescription": "🛑 For which *language identifiers* automatic header insert is allowed by default."
 					},
-					"${npm_package_name}.autoInsert.languages": {
+					"powerHeader.autoInsert.languages": {
 						"type": "array",
 						"items": {
 							"type": "string"
@@ -72,9 +115,9 @@
 							"Log"
 						],
 						"scope": "language-overridable",
-						"markdownDescription": "List of *language identifiers* for **Allow** negation.  \n\n- If **Allow** is `all` this works as a blacklist (exclude these languages)  \n\n- If **Allow** is `none` this works as a whitelist (auto insert only for these languages)  \n\n\r☝️ List of [known language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)"
+						"markdownDescription": "🗃️ List of *language identifiers* for **Allow** negation.  \n\n- If **Allow** is `all` works as a blacklist (exclude these languages)  \n\n- If **Allow** is `none` works as a whitelist (auto insert only for these languages)  \n\n- If **Allow** is `always` has no effect at all  \n\n\r☝️ List of [known language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)"
 					},
-					"${npm_package_name}.commentMode": {
+					"powerHeader.commentMode": {
 						"type": "string",
 						"enum": [
 							"block",
@@ -82,21 +125,21 @@
 							"raw"
 						],
 						"markdownEnumDescriptions": [
-							"Use Block Comment style.  \n\n`/* Hello`  \n\n`World */`",
-							"Use Line Comment style.  \n\n`// Hello`  \n\n`// World`",
-							"Insert header text as is.  \n\n`Hello`  \n\n`World`  \n\nNo extra commenting is done.  \n\nAttention ⚠️  \n\n🅰 Use this option as a language specific **Template** overwrite in *settings.json*, as you must use the correct comment charaters in the  **Template**:  \n\n`\"[<language>]\": { \"${npm_package_name}.commentMode\": \"raw\", \"${npm_package_name}.template\": ... }`  \n\n🅱 Use the comment [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) in the **Template**:  \n\n`${BLOCK_COMMENT_START}`  \n\n`${BLOCK_COMMENT_END}`  \n\n`${LINE_COMMENT}`"
+							"⬛ Use Block Comment style.  \n\n`/* Hello`  \n\n`World */`",
+							"➖ Use Line Comment style.  \n\n`// Hello`  \n\n`// World`",
+							"📃 Insert header text as is.  \n\n`Hello`  \n\n`World`  \n\nNo extra commenting is done.  \n\nAttention ⚠️  \n\n🅰 Use this option as a language specific **Template** overwrite in *settings.json*, as you must use the correct comment charaters in the  **Template**:  \n\n`\"[<language>]\": { \"powerHeader.commentMode\" \"raw\", \"powerHeader.template\": ... }`  \n\n🅱 Use the comment [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) in the **Template**  \n\n`${BLOCK_COMMENT_START}`  \n\n`${BLOCK_COMMENT_END}`  \n\n`${LINE_COMMENT}`"
 						],
 						"default": "block",
 						"scope": "language-overridable",
-						"markdownDescription": "How to comment header text assembled from **Template**.  \n\nAttention ⚠️  \n\nNot all languages support all modes; e.g. *js* both (`// /* */`), *html* / *css* only block tags (`<!-- -->` / `/* */`), *shell* however only line tag (`REM`, `#`). You can use language specific overwrites in *settings.json*: `\"[shellscript]\": { \"${npm_package_name}.commentMode\": \"line\" }` in these cases."
+						"markdownDescription": "💬 How to comment header text assembled from **Template**.  \n\nAttention ⚠️  \n\nNot all languages support all modes; e.g.  \n\n- *js* has both (`// /* */`)  \n\n- *html* or *css* only block tags (`<!-- -->` / `/* */`)  \n\n- *shell* however only line tag (`REM`, `#`)  \n\nYou can use language specific overwrites in *settings.json*: `\"[shellscript]\": { \"powerHeader.commentMode\": \"line\" }` in these cases."
 					},
-					"${npm_package_name}.template": {
+					"powerHeader.template": {
 						"type": "string",
 						"default": "\\nAuthor: <author> (email)\\n$TM_FILENAME (c) $CURRENT_YEAR\\nDesc: ${1:description}\\nCreated:  !date!\\nModified: !date!\\n",
 						"scope": "language-overridable",
-						"markdownDescription": "Header template text or URI.  \n\nSee **Variables** for string interpolation options.  \n\nTemplate examples:  \n\n- Plain text `Author: <author>\\n(c) $CURRENT_YEAR`  \n\n- File containing template text in current workspace `file://$WORKSPACE_FOLDER/template.txt`  \n\n- Local file `file://C:\\clients\\header.txt`  \n\n- Local file `file:///home/user/header`  \n\n- Remote `https://raw.githubusercontent.com/microsoft/vscode/snippet/snippetVariables.ts`  \n\n☝️ To initiate interpolation in URI, at least one variable must contain a `$`."
+						"markdownDescription": "📄 Header template text or URI.  \n\nSee **Variables** for string interpolation options.  \n\nTemplate examples:  \n\n- Plain text `Author: <author>\\n(c) $CURRENT_YEAR`  \n\n- File containing template text in current workspace `file://$WORKSPACE_FOLDER/template.txt`  \n\n- Local file `file://C:/windows/header.txt`  \n\n- Local file `file:///opt/linux/header`  \n\n- Remote `https://raw.githubusercontent.com/microsoft/vscode/snippet/snippetVariables.ts`  \n\n☝️ To initiate URI interpolation at least one variable must contain a `$`-[sigil](https://en.wikipedia.org/wiki/Sigil_(computer_programming))."
 					},
-					"${npm_package_name}.variables": {
+					"powerHeader.variables": {
 						"type": "array",
 						"items": {
 							"type": "string"
@@ -107,9 +150,9 @@
 							"!date!=new Date().toISOString()"
 						],
 						"scope": "language-overridable",
-						"markdownDescription": "Variables for interpolation in **Template** and **Content**.  \n\nYou can use all [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) and define custom variable pairs here in [INI file format](https://en.wikipedia.org/wiki/INI_file#Format) `name=value`.  \n\n`value` is evaluated as JavaScript code before  replace(`name`), allowing for arbitrary complex text -- use quotation for string values!  \n\n☝️ Interpolation is done in the order of this list (lastly vscode snippet variables); e.g. `a='b'` followed by `b='c'` would be equal to `a='c'` -- keep an eye out on not accidentally overwriting names from values."
+						"markdownDescription": "🔀 Variables for interpolation in **Template** and **Content**.  \n\nYou can use all [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) and define custom variable pairs here in [INI file format](https://en.wikipedia.org/wiki/INI_file#Format) `name=value`.  \n\n`value` is evaluated as JavaScript code before  replace(`name`), allowing for arbitrary complex text -- use 'quotes' for string values!  \n\n☝️ Interpolation is done in the order of this list (lastly vscode snippet variables); e.g. `a='b'` followed by `b='c'` would be equal to `a='c'` -- keep an eye out on not accidentally overwriting names from values or use this to your advantage."
 					},
-					"${npm_package_name}.logLevel": {
+					"powerHeader.logLevel": {
 						"type": "string",
 						"enum": [
 							"error",
@@ -119,38 +162,38 @@
 						],
 						"default": "info",
 						"markdownEnumDescriptions": [
-							"Serious problem",
-							"Potential problem",
-							"Trace execution",
-							"Useful when debugging problem"
+							"💥 Serious problem",
+							"⚠️ Potential problem",
+							"ℹ Trace execution",
+							"🐞 Useful when debugging problem"
 						],
 						"scope": "language-overridable",
-						"markdownDescription": "Minium log level to print in *Output Channel*."
+						"markdownDescription": "📜 Minium log level to print in *Output Channel*."
 					},
-					"${npm_package_name}.newLines": {
+					"powerHeader.newLines": {
 						"type": "number",
 						"minimum": 0,
 						"default": 2,
 						"scope": "language-overridable",
-						"markdownDescription": "Additional *new lines* after final header line.  \n\nUse this option instead of adding `\\n` in **Template** to avoid commented out new lines."
+						"markdownDescription": "↩️ Insert additional *new lines* after header text.  \n\nUse this option instead of adding `\\n` in **Template** to avoid commented out new lines."
 					},
-					"${npm_package_name}.update.enable": {
+					"powerHeader.update.enable": {
 						"type": "string",
 						"enum": [
-							"disabled",
+							"disable",
 							"manual",
 							"save"
 						],
-						"default": "disabled",
+						"default": "disable",
 						"markdownEnumDescriptions": [
-							"Completely disable update functionality, including command/shortcut.",
-							"Manual via command/shortcut only.",
-							"On file save (this extends `manual`)"
+							"🚫 Completely disable update functionality, including command/shortcut.",
+							"🖐 Manual via command/shortcut only.",
+							"💾 Also on file save (this extends `manual`)"
 						],
 						"scope": "language-overridable",
-						"markdownDescription": "When to update the **header** contents.  \n\nSee **Content** for options.  \n\nUse with caution ⚠️"
+						"markdownDescription": "🔄 When to update the **header** contents.  \n\nSee **Content** for options.  \n\nUse with caution ⚠️"
 					},
-					"${npm_package_name}.update.content": {
+					"powerHeader.update.content": {
 						"type": "array",
 						"items": {
 							"type": "string"
@@ -159,14 +202,14 @@
 							"Modified:\\s+(.+)=!date!"
 						],
 						"scope": "language-overridable",
-						"markdownDescription": "(You really should use a version control system for change tracking, but here you go 🤷‍♀️)  \n\nJavaScript regular expression replace(`RegExp`) on frist match, allowing for arbitrary complex text updates.  \n\nSee **Variables** for string interpolation options.  \n\n☝️ You can use `name` of **Variables** here as `value` perfrom an indirect interplation on that variable (😉 syntactic sugar for more [dry-ness](https://en.wikipedia.org/wiki/Don't_repeat_yourself)).  \n\nUse with caution ⚠️"
+						"markdownDescription": "(You really should use a version control system for change tracking, but here you go 🤷)  \n\n📝 JavaScript regular expression replace(`RegExp`) on frist match, allowing for arbitrary complex text updates.  \n\nSee **Variables** for string interpolation options.  \n\n☝️ You can use `name` of **Variables** here as `value` to perfrom an indirect interplation on that variable (😉 syntactic sugar for more [dry-ness](https://en.wikipedia.org/wiki/Don't_repeat_yourself)).  \n\nUse with caution ⚠️"
 					}
 				}
 			}
 		],
 		"commands": [
 			{
-				"command": "${npm_package_name}.insert",
+				"command": "powerHeader.insert",
 				"title": "Insert / Update",
 				"category": "$npm_package_displayName",
 				"icon": {
@@ -177,7 +220,7 @@
 		],
 		"keybindings": [
 			{
-				"command": "${npm_package_name}.insert",
+				"command": "powerHeader.insert",
 				"key": "ctrl+alt+h",
 				"mac": "cmd+f1",
 				"when": "editorTextFocus"
@@ -185,7 +228,7 @@
 		]
 	},
 	"scripts": {
-		"vscode:prepublish": "npm run compile",
+		"vscode:prepublish": "npm run webpack",
 		"compile": "tsc -p ./",
 		"lint": "eslint src --ext ts",
 		"watch": "tsc -watch -p ./",
@@ -201,6 +244,7 @@
 		"@types/vscode": "^1.43.0",
 		"@typescript-eslint/eslint-plugin": "^2.26.0",
 		"@typescript-eslint/parser": "^2.26.0",
+		"copy-webpack-plugin": "^5.1.1",
 		"eslint": "^6.8.0",
 		"eslint-config-airbnb-base": "^14.1.0",
 		"eslint-plugin-import": "^2.20.2",

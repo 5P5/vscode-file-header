@@ -1,0 +1,16 @@
+
+           ,___ ,__  , .  . ,  __  ,  __  .  .
+           |__  |__) | \  / | /__` | /  \ |\ |
+           |___ |    |  \/  | .__/ | \__/ | \|
+
+<link>
+
+$TM_FILENAME (c) $CURRENT_YEAR
+
+Desc: ${1:description}
+
+Created:  !date!
+Modified: !date!
+
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International Public License
