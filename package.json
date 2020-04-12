@@ -1,6 +1,6 @@
 {
 	"name": "vscode-file-header",
-	"displayName": "Power Header",
+	"displayName": "👊 Power Header 💥",
 	"description": "Automatically (or by command or shortcut) insert (and update) file header text (author comment). Easy configuration and powerful customization to fit any needs!",
 	"publisher": "epivision",
 	"version": "1.0.0",
@@ -75,7 +75,7 @@
 	"contributes": {
 		"configuration": [
 			{
-				"title": "$npm_package_displayName",
+				"title": "👊 Power Header 💥",
 				"properties": {
 					"powerHeader.😉": {
 						"type": "boolean",
@@ -150,7 +150,7 @@
 							"!date!=new Date().toISOString()"
 						],
 						"scope": "language-overridable",
-						"markdownDescription": "🔀 Variables for interpolation in **Template** and **Content**.  \n\nYou can use all [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) and define custom variable pairs here in [INI file format](https://en.wikipedia.org/wiki/INI_file#Format) `name=value`.  \n\n`value` is evaluated as JavaScript code before  replace(`name`), allowing for arbitrary complex text -- use 'quotes' for string values!  \n\n☝️ Interpolation is done in the order of this list (lastly vscode snippet variables); e.g. `a='b'` followed by `b='c'` would be equal to `a='c'` -- keep an eye out on not accidentally overwriting names from values or use this to your advantage."
+						"markdownDescription": "🔀 Variables for interpolation in **Template** and **Content**.  \n\nYou can use all [vscode snippet variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) and define custom variable pairs here in [INI file format](https://en.wikipedia.org/wiki/INI_file#Format) `name=value`.  \n\n`value` is evaluated as JavaScript code before  replace(`name`), allowing for arbitrary complex text — use 'quotes' for string values!  \n\n☝️ Interpolation is done in the order of this list (lastly vscode snippet variables); e.g. `a='b'` followed by `b='c'` would be equal to `a='c'` — keep an eye out on not accidentally overwriting names from values or use this to your advantage."
 					},
 					"powerHeader.logLevel": {
 						"type": "string",
@@ -211,7 +211,7 @@
 			{
 				"command": "powerHeader.insert",
 				"title": "Insert / Update",
-				"category": "$npm_package_displayName",
+				"category": "👊 Power Header 💥",
 				"icon": {
 					"light": "path/to/light/icon.svg",
 					"dark": "path/to/dark/icon.svg"

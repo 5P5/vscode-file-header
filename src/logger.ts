@@ -54,5 +54,5 @@ class Logger {
 	}
 }
 
-const log = new Logger(PKG.name);
+const log = new Logger(PKG.displayName);
 export default log;

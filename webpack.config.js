@@ -30,12 +30,15 @@ const config = {
 				terserOptions: {
 					compress: { booleans_as_integers: true, drop_console: true, passes: 2, toplevel: true, },
 					toplevel: true,
-					mangle: { eval: true, toplevel: true, properties: {} }
+					mangle: { eval: true, toplevel: true, }
 				}
 			}).apply(compiler);
 		}]
 	},
-	plugins: [new CopyPlugin(['-dev/icon.png', '-dev/demo.gif', { from: '*', force: true }])],
+	plugins: [new CopyPlugin([
+		'-dev/icon.png',
+		{ from: '-dev/ezgif.com-gif-maker.gif', to: 'demo.gif' },
+	])],
 };
 module.exports = config;
 /*

@@ -1,4 +1,5 @@
 export const name = 'powerHeader';
+export const displayName = '👊 Power Header 💥';
 
 export const autoInsertEnable = 'autoInsert.enable';
 
