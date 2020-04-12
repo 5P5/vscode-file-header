@@ -3,7 +3,7 @@
 	"displayName": "👊 Power Header 💥",
 	"description": "Automatically (or by command or shortcut) insert (and update) file header text (author comment). Easy configuration and powerful customization to fit any needs!",
 	"publisher": "epivision",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"license": "SEE LICENSE IN LICENSE",
 	"homepage": "https://github.com/EPIVISION/vscode-file-header",
 	"repository": {
