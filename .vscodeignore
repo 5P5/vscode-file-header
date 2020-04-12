@@ -1,7 +1,6 @@
 **
-!dist/extension.js
+!extension.js
 !README.md
 !LICENSE
 !CHANGELOG.md
-!dist/icon.png
-!dist/demo.gif
+!icon.png

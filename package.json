@@ -14,7 +14,7 @@
 		"url": "https://github.com/EPIVISION/vscode-file-header/issues"
 	},
 	"qna": "https://github.com/EPIVISION/vscode-file-header/wiki",
-	"icon": "dist/icon.png",
+	"icon": "icon.png",
 	"galleryBanner": {
 		"color": "#f0eeec",
 		"theme": "light"
@@ -22,17 +22,17 @@
 	"badges": [
 		{
 			"url": "https://badgen.net/github/stars/EPIVISION/vscode-file-header",
-			"href": "",
+			"href": "https://github.com/EPIVISION/vscode-file-header/stargazers",
 			"description": "stars"
 		},
 		{
 			"url": "https://badgen.net/github/open-issues/EPIVISION/vscode-file-header",
-			"href": "",
+			"href": "https://github.com/EPIVISION/vscode-file-header/issues",
 			"description": "open issues"
 		},
 		{
 			"url": "https://badgen.net/github/last-commit/EPIVISION/vscode-file-header",
-			"href": "",
+			"href": "https://github.com/EPIVISION/vscode-file-header/commits/master",
 			"description": "last commit"
 		}
 	],
@@ -137,7 +137,7 @@
 						"type": "string",
 						"default": "\\nAuthor: <author> (email)\\n$TM_FILENAME (c) $CURRENT_YEAR\\nDesc: ${1:description}\\nCreated:  !date!\\nModified: !date!\\n",
 						"scope": "language-overridable",
-						"markdownDescription": "📄 Header template text or URI.  \n\nSee **Variables** for string interpolation options.  \n\nTemplate examples:  \n\n- Plain text `Author: <author>\\n(c) $CURRENT_YEAR`  \n\n- File containing template text in current workspace `file://$WORKSPACE_FOLDER/template.txt`  \n\n- Local file `file://C:/windows/header.txt`  \n\n- Local file `file:///opt/linux/header`  \n\n- Remote `https://raw.githubusercontent.com/microsoft/vscode/snippet/snippetVariables.ts`  \n\n☝️ To initiate URI interpolation at least one variable must contain a `$`-[sigil](https://en.wikipedia.org/wiki/Sigil_(computer_programming))."
+						"markdownDescription": "📄 Header template text or URI.  \n\nSee **Variables** for string interpolation options.  \n\nTemplate examples:  \n\n- Plain text `Author: <author>\\n(c) $CURRENT_YEAR`  \n\n- File containing template text in current workspace `file://$WORKSPACE_FOLDER/template.txt`  \n\n- Local file `file://C:/windows/header.txt`  \n\n- Local file `file:///opt/linux/header`  \n\n- Remote `https://raw.githubusercontent.com/EPIVISION/vscode-file-header/master/header.txt`  \n\n☝️ To initiate URI interpolation at least one variable must contain a `$`-[sigil](https://en.wikipedia.org/wiki/Sigil_(computer_programming))."
 					},
 					"powerHeader.variables": {
 						"type": "array",

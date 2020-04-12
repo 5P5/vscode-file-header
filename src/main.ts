@@ -1,3 +1,21 @@
+/*
+					 ,___ ,__  , .  . ,  __  ,  __  .  .
+					 |__  |__) | \  / | /__` | /  \ |\ |
+					 |___ |    |  \/  | .__/ | \__/ | \|
+
+https://github.com/EPIVISION/vscode-file-header
+
+main.ts (c) 2020
+
+Desc: here is where all the magic happens
+
+Created:  2020-03-27T12:29:59.308Z
+Modified: !date!
+
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International Public License
+*/
+
 import * as vscode from 'vscode';
 import * as PKG from './consts';
 import * as utils from './utils';

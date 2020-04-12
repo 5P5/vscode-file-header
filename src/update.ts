@@ -1,3 +1,21 @@
+/*
+					 ,___ ,__  , .  . ,  __  ,  __  .  .
+					 |__  |__) | \  / | /__` | /  \ |\ |
+					 |___ |    |  \/  | .__/ | \__/ | \|
+
+https://github.com/EPIVISION/vscode-file-header
+
+update.ts (c) 2020
+
+Desc: regex replace in text to update header contents
+
+Created:  2020-04-06T03:01:14.273Z
+Modified: !date!
+
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International Public License
+*/
+
 import * as vscode from 'vscode';
 import * as PKG from './consts';
 import * as utils from './utils';

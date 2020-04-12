@@ -1,11 +1,9 @@
-<div style="text-align: center;">
-<h1>👊 Power Header 💥</h1>
+<h1 align="center">👊 Power Header 💥</h1>
 
-**Power Header** automatically (or via command/shortcut `Ctrl+Alt+H`) inserts (and updates) file header text (author comment).  
-**Power Header** offers easy configuration and powerful customization to fit any needs!
+<p align="center"><b>Power Header</b> automatically (or via command/shortcut `Ctrl+Alt+H`) inserts (and updates) file header text (author comment).<br/>
+<b>Power Header</b> offers easy configuration and powerful customization to fit any needs!</p>
 
-![short demo of Power Header in action](dist/demo.gif "Power Header in action")
-</div>
+<p align="center"><img src="demo.gif" alt="short demo of Power Header in action" width="800"></p>
 
 ## Features
 
@@ -39,10 +37,12 @@
 		"powerHeader.template": "Author: <author> (email) / $TM_FILENAME @ !date!"
 	}
 	```
+
 1. Use another header for that client project ⚙️ *Workspace settings.json*
 	```jsonc
 	"powerHeader.template": "file://$WORKSPACE_FOLDER/dev/template.txt"
 	```
+	
 1. You company requires you to use a specific header template in `cpp`? Easy! ⚙️ \<any>
 	```jsonc
 	"[cpp]": { 

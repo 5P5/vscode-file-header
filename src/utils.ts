@@ -1,3 +1,22 @@
+/*
+					 ,___ ,__  , .  . ,  __  ,  __  .  .
+					 |__  |__) | \  / | /__` | /  \ |\ |
+					 |___ |    |  \/  | .__/ | \__/ | \|
+
+https://github.com/EPIVISION/vscode-file-header
+
+utils.ts (c) 2020
+
+Desc: utility functions
+parseINI: split ini format pair string into map entries
+
+Created:  2020-04-01T05:01:52.633Z
+Modified: !date!
+
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International Public License
+*/
+
 export function parseINI(strings: [string], options: { [k: string]: string | boolean } = {}) {
 	const map = new Map<string, string>();
 

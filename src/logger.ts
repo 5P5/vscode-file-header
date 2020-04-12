@@ -1,3 +1,21 @@
+/*
+					 ,___ ,__  , .  . ,  __  ,  __  .  .
+					 |__  |__) | \  / | /__` | /  \ |\ |
+					 |___ |    |  \/  | .__/ | \__/ | \|
+
+https://github.com/EPIVISION/vscode-file-header
+
+logger.ts (c) 2020
+
+Desc: logger singelton
+
+Created:  2020-03-29T11:35:03.848Z
+Modified: !date!
+
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International Public License
+*/
+
 import * as vscode from 'vscode';
 import * as PKG from './consts';
 

@@ -1,3 +1,21 @@
+/*
+					 ,___ ,__  , .  . ,  __  ,  __  .  .
+					 |__  |__) | \  / | /__` | /  \ |\ |
+					 |___ |    |  \/  | .__/ | \__/ | \|
+
+https://github.com/EPIVISION/vscode-file-header
+
+consts.ts (c) 2020
+
+Desc: package const strings
+
+Created:  2020-04-02T05:49:00.268Z
+Modified: !date!
+
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International Public License
+*/
+
 export const name = 'powerHeader';
 export const displayName = '👊 Power Header 💥';
 

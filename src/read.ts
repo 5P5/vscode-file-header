@@ -1,3 +1,21 @@
+/*
+					 ,___ ,__  , .  . ,  __  ,  __  .  .
+					 |__  |__) | \  / | /__` | /  \ |\ |
+					 |___ |    |  \/  | .__/ | \__/ | \|
+
+https://github.com/EPIVISION/vscode-file-header
+
+read.ts (c) 2020
+
+Desc: read header template from string, local file or remote
+
+Created:  2020-03-28T16:10:35.685Z
+Modified: !date!
+
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International Public License
+*/
+
 import * as vscode from 'vscode';
 import { URL } from 'url';
 import log from './logger';
