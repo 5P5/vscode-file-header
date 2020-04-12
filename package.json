@@ -14,7 +14,7 @@
 		"url": "https://github.com/EPIVISION/vscode-file-header/issues"
 	},
 	"qna": "https://github.com/EPIVISION/vscode-file-header/wiki",
-	"icon": "./dist/icon.png",
+	"icon": "dist/icon.png",
 	"galleryBanner": {
 		"color": "#f0eeec",
 		"theme": "light"
