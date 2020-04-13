@@ -77,43 +77,44 @@ export default async function insertHeader(e: any) {
 		if (!config.get(PKG.autoInsertEnable)) return -1552185;
 		log.info('check document is virgin');
 		if (editor.document.getText().length > 0) return -1429067;
+
+		log.info('language allowed check');
+		const Allow = config.get(PKG.autoInsertAllow);
+		const Languages = config.get(PKG.autoInsertLanguages);
+
+		log.debug(`autoInsertAllow is ´${Allow}´, language is ´${languageId}´`);
+		switch (Allow) {
+		case PKG.autoInsertAllowAll:
+			if (Languages.includes(languageId)) {
+				log.info(`´${languageId}´ is blacklisted`);
+				return -1956672;
+			}
+			break;
+
+		case PKG.autoInsertAllowNone:
+			if (Languages.includes(languageId)) {
+				log.info(`´${languageId}´ is whitelisted`);
+			} else {
+				return -1740105;
+			}
+			break;
+
+		case PKG.autoInsertAllowAlways:
+			log.debug('autoInsertAllowAlways');
+			break;
+
+		default:
+			log.warn(`invalid case ´${Allow}´ for ${PKG.autoInsertAllow}`);
+			return -1517709;
+		}
 		break;
 
 	default:
 		log.warn(`caller ´${this.toString()}´ is unknown`);
+		return -1294217;
 	}
 
 	// compile a new header from here on:
-	log.info('language allowed check');
-	const Allow = config.get(PKG.autoInsertAllow);
-	const Languages = config.get(PKG.autoInsertLanguages);
-
-	log.debug(`autoInsertAllow is ´${Allow}´, language is ´${languageId}´`);
-	switch (Allow) {
-	case PKG.autoInsertAllowAll:
-		if (Languages.includes(languageId)) {
-			log.info(`´${languageId}´ is blacklisted`);
-			return -1956672;
-		}
-		break;
-
-	case PKG.autoInsertAllowNone:
-		if (Languages.includes(languageId)) {
-			log.info(`´${languageId}´ is whitelisted`);
-		} else {
-			return -1740105;
-		}
-		break;
-
-	case PKG.autoInsertAllowAlways:
-		log.debug('autoInsertAllowAlways');
-		break;
-
-	default:
-		log.warn(`invalid case ´${Allow}´ for ${PKG.autoInsertAllow}`);
-		return -1517709;
-	}
-
 	log.info(`get ${PKG.variables}`);
 	const variables = utils.parseINI(config.get(PKG.variables));
 

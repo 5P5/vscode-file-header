@@ -1,7 +1,14 @@
 <h1 align="center">👊 Power Header 💥</h1>
 
-<p align="center"><b>Power Header</b> automatically (or via command/shortcut `Ctrl+Alt+H`) inserts (and updates) file header text (author comment).<br/>
+<p align="center"><b>Power Header</b> automatically (or via command/shortcut <kbd>Ctrl+Alt+H</kbd>) inserts (and updates) file header text (author comment).<br/>
 <b>Power Header</b> offers easy configuration and powerful customization to fit any needs!</p>
+
+<p align="center">
+<a href="https://marketplace.visualstudio.com/items?itemName=epivision.vscode-file-header"><img src="https://badgen.net/vs-marketplace/v/epivision.vscode-file-header" alt="vs-marketplace version"></a>
+<img src="https://badgen.net/vs-marketplace/i/epivision.vscode-file-header" alt="vs-marketplace installs">
+<img src="https://badgen.net/vs-marketplace/d/epivision.vscode-file-header" alt="vs-marketplace downloads">
+<img src="https://badgen.net/vs-marketplace/rating/epivision.vscode-file-header" alt="vs-marketplace rating">
+</p>
 
 <p align="center"><img src="demo.gif" alt="short demo of Power Header in action" width="800"></p>
 

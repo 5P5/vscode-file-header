@@ -1,7 +1,7 @@
 {
 	"name": "vscode-file-header",
 	"displayName": "👊 Power Header 💥",
-	"description": "Automatically (or by command or shortcut) insert (and update) file header text (author comment). Easy configuration and powerful customization to fit any needs!",
+	"description": "Automatically (or via command or shortcut) insert (and update) file header text (author comment). Easy configuration and powerful customization to fit any needs!",
 	"publisher": "epivision",
 	"version": "1.0.2",
 	"license": "SEE LICENSE IN LICENSE",
@@ -99,7 +99,7 @@
 						"markdownEnumDescriptions": [
 							"☑️ All languages, except in **Languages**.",
 							"🚫 No language, unless in **Languages**.",
-							"✅ Use this option as a language specific **Allow** overwrite in *settings.json*:  \n\n`\"[<language>]\": { \"powerHeader.autoInsert.allow\" \"always\", ... }"
+							"✅ Use this option as a language specific **Allow** overwrite in *settings.json*:  \n\n`\"[<language>]\": { \"powerHeader.autoInsert.allow\" \"always\", ... }`"
 						],
 						"default": "all",
 						"scope": "language-overridable",
