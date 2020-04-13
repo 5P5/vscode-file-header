@@ -222,7 +222,7 @@
 			{
 				"command": "powerHeader.insert",
 				"key": "ctrl+alt+h",
-				"mac": "cmd+f1",
+				"mac": "cmd+alt+h",
 				"when": "editorTextFocus"
 			}
 		]
