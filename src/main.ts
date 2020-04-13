@@ -28,9 +28,9 @@ export default async function insertHeader(e: any) {
 	log.newRunId();
 	log.debug('--- called ---');
 
-	let editor = vscode.window.activeTextEditor;
+	let editor; // needs initial wait to work more stable on newly opened editors
 	let time = 0;
-	const max = 1500, tick = 800;
+	const max = 1500, tick = 500;
 	while (!editor && time < max) {
 		log.debug('activeTextEditor wait tick');
 		time += tick;

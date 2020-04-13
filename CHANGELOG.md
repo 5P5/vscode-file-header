@@ -2,6 +2,10 @@
 
 - Features in Development 👨‍💻
 
+# [1.0.6] 2020-04-13
+
+- initial wait to work more stable on newly opened editors
+
 # [1.0.5] 2020-04-13
 
 - fixed wrong bundle
@@ -24,4 +28,4 @@
 - Initial release
 
 [Unreleased]: https://github.com/EPIVISION/vscode-file-header/tree/master
-[1.0.5]: https://github.com/EPIVISION/vscode-file-header/releases/tag/1.0.5
+[1.0.6]: https://github.com/EPIVISION/vscode-file-header/releases/tag/1.0.6

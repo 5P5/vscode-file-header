@@ -13,5 +13,12 @@
         "<link>='https://github.com/EPIVISION/vscode-file-header'",
         "!date!=new Date().toISOString()"
     ],
-    "powerHeader.autoInsert.enable": true
+    "powerHeader.autoInsert.enable": true,
+    "powerHeader.logLevel": "debug",
+    "[plaintext]": {
+        "powerHeader.autoInsert.enable": true,
+        "powerHeader.autoInsert.allow": "always",
+        "powerHeader.commentMode": "raw",
+        "powerHeader.template": "Author: <author> (email) / $TM_FILENAME @ !date!"
+    }
 }
