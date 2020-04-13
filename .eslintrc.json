@@ -27,10 +27,7 @@
         "import/no-unresolved": "warn",
         "import/extensions": "off",
         "prefer-template": "off",
-        "no-template-curly-in-string":"warn",
-        "one-var":"off",
-        "one-var-declaration-per-line":"off",
-        "linebreak-style": ["error", "windows"]
+        "no-template-curly-in-string":"warn"
     },
     "env": {
         "es6": true,

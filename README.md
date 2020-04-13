@@ -66,4 +66,8 @@ See *Feature Contributions* tab⤴️ and better check in *Settings*➡️*Exten
 
 ## Known Issues
 
-🙅
+🐞 `"powerHeader.update.enable": "save"` will not work correctly in combination with `"files.autoSave": "onFocusChange"`  
+(The focus-losing document will be saved nonetheless, but *header content update* will be tried in the focus-gaining (editable) editor)  
+🩹 Workarounds:  
+If you want to keep `"files.autoSave": "onFocusChange"` set `"powerHeader.update.enable": "manual"`  
+or use `"powerHeader.update.enable": "save"` with `"files.autoSave": "off|afterDelay|onWindowChange"` setting

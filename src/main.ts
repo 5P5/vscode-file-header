@@ -24,18 +24,30 @@ import getTemplate from './read';
 import interpolate from './interpolate';
 import update from './update';
 
-export default async function insertHeader(e: any) {
+export default async function insertHeader(e: vscode.TextDocument|vscode.TextDocumentWillSaveEvent) {
 	log.newRunId();
 	log.debug('--- called ---');
 
-	let editor; // needs initial wait to work more stable on newly opened editors
-	let time = 0;
-	const max = 1500, tick = 500;
-	while (!editor && time < max) {
-		log.debug('activeTextEditor wait tick');
-		time += tick;
-		await new Promise((resolve) => setTimeout(resolve, tick)); // some hack to get the active editor after a new doc is created
-		editor = vscode.window.activeTextEditor;
+	let editor = vscode.window.activeTextEditor;
+	log.info('determin called from');
+	switch (this) {
+	case '1db631': log.debug('onWillSaveTextDocument'); break;
+	case 'acb777': log.debug('registerCommand'); break;
+	case '3c8a55': log.debug('onDidOpenTextDocument');
+		/* some hack to get the active editor after a new doc is created
+		needs initial wait to work more stable on newly opened editors */
+		editor = undefined;
+		let time = 0;
+		const max = 1500;
+		const tick = 500;
+		while (!editor && time < max) {
+			log.debug('activeTextEditor wait tick');
+			time += tick;
+			await new Promise((resolve) => setTimeout(resolve, tick));
+			editor = vscode.window.activeTextEditor;
+		}
+		break;
+	default: log.warn(`caller ´${this.toString()}´ is unknown`); return -1294217;
 	}
 
 	log.info('sanity checks');
@@ -48,16 +60,14 @@ export default async function insertHeader(e: any) {
 	const { languageId } = editor.document; // I need an activeTextEditor here!
 	const config = vscode.workspace.getConfiguration(PKG.name, { uri: editor.document.uri, languageId });
 
-	log.info('determin called from');
+	log.info('determin action to perform');
 	switch (this) {
-	case '1db631':
-		log.debug('onWillSaveTextDocument');
+	case '1db631': log.debug('onWillSaveTextDocument');
 		log.info('check updateEnable');
 		if (config.get(PKG.updateEnable) !== PKG.updateEnableSave) return -1696462;
 		// fallthrough
 
-	case 'acb777':
-		log.debug('registerCommand');
+	case 'acb777': log.debug('registerCommand');
 		log.info('check updateEnable');
 		if (config.get(PKG.updateEnable) !== PKG.updateEnableDisable) {
 			log.info('check document has content');
@@ -71,8 +81,7 @@ export default async function insertHeader(e: any) {
 		}
 		break;
 
-	case '3c8a55':
-		log.debug('onDidOpenTextDocument');
+	case '3c8a55': log.debug('onDidOpenTextDocument');
 		log.info('check autoInsertEnable');
 		if (!config.get(PKG.autoInsertEnable)) return -1552185;
 		log.info('check document is virgin');
@@ -109,9 +118,7 @@ export default async function insertHeader(e: any) {
 		}
 		break;
 
-	default:
-		log.warn(`caller ´${this.toString()}´ is unknown`);
-		return -1294217;
+	default: log.debug('🤷 cannot happen');
 	}
 
 	// compile a new header from here on:
@@ -139,8 +146,7 @@ export default async function insertHeader(e: any) {
 		break;
 
 	case PKG.commentModeRaw:
-	default:
-		snippet = header;
+	default: snippet = header;
 	}
 
 	log.info('touching up snippet 😄');
