@@ -71,7 +71,7 @@
 		"*",
 		"onCommand:powerHeader.insert"
 	],
-	"main": "./dist/extension.js",
+	"main": "extension.js",
 	"contributes": {
 		"configuration": [
 			{
