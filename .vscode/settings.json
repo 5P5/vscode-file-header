@@ -12,5 +12,6 @@
     "powerHeader.variables": [
         "<link>='https://github.com/EPIVISION/vscode-file-header'",
         "!date!=new Date().toISOString()"
-    ]
+    ],
+    "powerHeader.autoInsert.enable": true
 }
