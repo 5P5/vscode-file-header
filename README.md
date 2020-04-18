@@ -4,7 +4,7 @@
 <b>Power Header</b> offers easy configuration and powerful customization to fit any needs!</p>
 
 <p align="center">
-<a href="https://marketplace.visualstudio.com/items?itemName=epivision.vscode-file-header"><img src="https://badgen.net/vs-marketplace/v/epivision.vscode-file-header" alt="vs-marketplace version"></a>
+<a href="https://marketplace.visualstudio.com/items?itemName=epivision.vscode-file-header"><img src="https://badgen.net/vs-marketplace/v/epivision.vscode-file-header?icon=windows" alt="vs-marketplace version"></a>
 <img src="https://badgen.net/vs-marketplace/i/epivision.vscode-file-header" alt="vs-marketplace installs">
 <img src="https://badgen.net/vs-marketplace/d/epivision.vscode-file-header" alt="vs-marketplace downloads">
 <img src="https://badgen.net/vs-marketplace/rating/epivision.vscode-file-header" alt="vs-marketplace rating">
@@ -50,7 +50,7 @@
 	"powerHeader.template": "file://$WORKSPACE_FOLDER/dev/template.txt"
 	```
 	
-1. You company requires you to use a specific header template in `cpp`? Easy! ⚙️ \<any>
+1. Your company requires you to use a specific header template in `cpp`? Easy! ⚙️ \<any>
 	```jsonc
 	"[cpp]": { 
 		"powerHeader.commentMode": "line",

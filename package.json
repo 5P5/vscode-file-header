@@ -21,17 +21,17 @@
 	},
 	"badges": [
 		{
-			"url": "https://badgen.net/github/stars/EPIVISION/vscode-file-header",
+			"url": "https://badgen.net/github/stars/EPIVISION/vscode-file-header?icon=github",
 			"href": "https://github.com/EPIVISION/vscode-file-header/stargazers",
 			"description": "stars"
 		},
 		{
-			"url": "https://badgen.net/github/open-issues/EPIVISION/vscode-file-header",
+			"url": "https://badgen.net/github/open-issues/EPIVISION/vscode-file-header?icon=github",
 			"href": "https://github.com/EPIVISION/vscode-file-header/issues",
 			"description": "open issues"
 		},
 		{
-			"url": "https://badgen.net/github/last-commit/EPIVISION/vscode-file-header",
+			"url": "https://badgen.net/github/last-commit/EPIVISION/vscode-file-header?icon=github",
 			"href": "https://github.com/EPIVISION/vscode-file-header/commits/master",
 			"description": "last commit"
 		}
