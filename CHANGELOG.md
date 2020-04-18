@@ -2,6 +2,10 @@
 
 - Features in Development 👨‍💻
 
+# [1.0.8] 2020-04-18
+
+- fixed new lines in `"powerHeader.commentMode": "raw"` [#1](https://github.com/EPIVISION/vscode-file-header/issues/1)
+
 # [1.0.7] 2020-04-13
 
 - fixed some problems when `"powerHeader.update.enable": "save"`
@@ -20,4 +24,4 @@
 - Initial release
 
 [Unreleased]: https://github.com/EPIVISION/vscode-file-header/tree/master
-[1.0.7]: https://github.com/EPIVISION/vscode-file-header/releases/tag/1.0.7
+[1.0.8]: https://github.com/EPIVISION/vscode-file-header/releases/tag/1.0.8

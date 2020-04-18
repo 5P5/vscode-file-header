@@ -146,7 +146,7 @@ export default async function insertHeader(e: vscode.TextDocument|vscode.TextDoc
 		break;
 
 	case PKG.commentModeRaw:
-	default: snippet = header;
+	default: snippet = header.replace(/\\n/g, '\n');
 	}
 
 	log.info('touching up snippet 😄');
