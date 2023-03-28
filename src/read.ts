@@ -28,19 +28,20 @@ async function file(url: URL) {
 
 // partially from https://stackoverflow.com/questions/6968448/where-is-body-in-a-nodejs-http-get-response/50244236#50244236
 async function remote(url: URL) {
-	const { get } = await import(url.protocol.slice(0, -1));
+    const protocol = url.protocol.slice(0, -1);
+    const { get } = protocol === 'https' ? await import('https') : await import('http');
 
-	return new Promise((resolve, reject) => {
-		get(url, (res) => {
-			let data = '';
+    return new Promise((resolve, reject) => {
+        get(url, (res) => {
+            let data = '';
 
-			// A chunk of data has been received.
-			res.on('data', (chunk) => { data += chunk; });
+            // A chunk of data has been received.
+            res.on('data', (chunk) => { data += chunk; });
 
-			// The whole response has been received. Print out the result.
-			res.on('end', () => { resolve(data); });
-		}).on('error', (err) => { reject(err); });
-	});
+            // The whole response has been received. Print out the result.
+            res.on('end', () => { resolve(data); });
+        }).on('error', (err) => { reject(err); });
+    });
 }
 
 export default async function getTemplate(text: string, variables:Map<string, string>) {
